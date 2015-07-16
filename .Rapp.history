@@ -1,0 +1,263 @@
+rgp2()
+head(swiss)
+mdl <- lm(Fertility ~ ., data=swiss)
+vif(mdl)
+mdl <- lm(Fertility ~ Agriculture + EDucation + Catholic + Infant.Mortality, data=swiss)
+mdl <- lm(Fertility ~ Agriculture + Education + Catholic + Infant.Mortality, data=swiss)
+mdl2 <- lm(Fertility ~ Agriculture + Education + Catholic + Infant.Mortality, data=swiss)
+vif(mdl2)
+x1c <- simbias()
+apply(x1c, 1, mean)
+fit1 <- lm(Fertility ~ Agriculture, data=swiss)
+fit3 <- lm(Fertility ~ Agriculture + Examination + Education, data=swiss)
+anova(fit1, fit3)
+deviance(fit3)
+d <- deviance(fit3)/43
+n <- (deviance(fit1) - deviance(fit3)/2)
+n <- (deviance(fit1) - deviance(fit3))/2
+n/d
+pf(n/d, 2, 43, lower.tail=FALSE)
+shapiro.test(fit3$residuals)
+anova(fit1, fit3, fit5, fit6)
+ravenData
+mdl <- glm(ravenWinNum ~ ravenScore, family="binomial", data=ravenData)
+lodds <- predict(mdl, data.frame(ravenScore=c(0,3,6)))
+exp(lodds)/(1+exp(lodds))
+summary(mdl)
+exp(confint(mdl))
+anova(mdl)
+qchisq(0.95,1)
+var(rpois(1000,50))
+head(hits)
+class(hits[,'date'])
+as.integer(head(hits[,'date']))
+mdl <- lm(visits~date, family="poisson", data=hits)
+mdl <- glm(visits~date, family="poisson", data=hits)
+summary(mdl)
+exp(confint(mdl, 'date'))
+which.max(hits[,'visits'])
+hits[704,]
+lambda <- mdl$fitted.values[704]
+qpois(.95, lambda)
+mdl2 <- glm(visits~date, family="poisson", data=hits, offset=log(visits+1))
+mdl2 <- glm(simplystats~date, family="poisson", data=hits, offset=log(visits+1))
+qpois(.95, mdl2$fitted.values[704])
+swirl()
+2
+(32-30)/(10/4)
+15
+qt(.95,15)
+dim(fs)
+t.test(fs$sheight - fs$fheight)
+11.7885 * sd(fs$sheight - fs$fheight)/sqrt(1078)
+mybin
+8
+myplot(34)
+myplot(33.3)
+myplot(30)
+myplot(28)
+z <- qnorm(.95)
+pnorm(quantile=30+z, mean=30, lower.tail=FALSE)
+pnorm(30+z, mean=30, lower.tail=FALSE)
+pnorm(30+z, mean=32, lower.tail=FALSE)
+pnorm(30+z, mean=32, sd=1, lower.tail=FALSE)
+pnorm(30+z, mean=32, sd=2, lower.tail=FALSE)
+pnorm(30+z*2, mean=32, sd=2, lower.tail=FALSE)
+power.t.test(n=16, delta=2 / 4, sd=1, type= "one.sample", alt= "one.sided")$power
+power.t.test(n=16, delta=2, sd=4, type= "one.sample", alt= "one.sided")$power
+power.t.test(n=16, delta=100, sd=200, type= "one.sample", alt= "one.sided")$power
+power.t.test(power = .8, delta = 2/4, sd=1, type=)
+power.t.test(power = .8, delta = 2/4, sd=1, type="one.sample", alt = one = "one.sided")$n
+power.t.test(power = .8, delta = 2/4, sd=1, type="one.sample", alt = "one.sided")$n
+power.t.test(power = .8, delta = 2, sd=4, type="one.sample", alt = "one.sided")$n
+power.t.test(power = .8, delta = 100, sd=200, type="one.sample", alt = "one.sided")$n
+power.t.test(power = .8, n=26, sd=1, type="one.sample", alt = "one.sided")$delta
+power.t.test(power = .8, n=27, sd=1, type="one.sample", alt = "one.sided")$delta
+head(pValues)
+sum(pValues<0.05)
+sum(p.adjust(pValues<0.05, method="bonferroni"))
+sum(p.adjust(pValues, method="bonferroni") < 0.05)
+sum(p.adjust(pValues, method="BH") < 0.05)
+tail(trueStats)
+tail(trueStatus)
+table(pValues2 < 0.05, trueStatus)
+24/500
+table(p.adjust(pValues2, method="bonferroni") < 0.05, trueStatus)
+table(p.adjust(pValues2, method="BH") < 0.05, trueStatus)
+3.5
+print(g2)
+head(sh)
+nh
+median(resampleMedians)
+median(resampledMedians)
+median(sh)
+sample(fh, nh*B, replace=TRUE)
+sam <- sample(fh, nh*B, replace=TRUE)
+resam <- matrix(sam, B, nh)
+meds <- apply(resam, 1, median)
+median(meds) - median(fh)
+sd(meds)
+sd(resampledMedians)
+quantile(resampledMedians, c(.025, .975))
+quantile(meds, c(.025, .975))
+dim(InsectSprays)
+names(InsectSprays)
+range(Bdata$count)
+range(Cdata$count)
+BCcounts
+group
+testStat
+obs <- testStat(BCcounts, group)
+obs
+mean(Bdata$count - Cdata$count)
+sample(group)
+perms <- sapply(1:10000, function(i) testStat(BCcounts, sample(group)))
+mean(perms>obs)
+testStat(DEcounts, group)
+perms <- sapply(1:10000, function(i) testStat(DEcounts, sample(group)))
+training <- read.csv("training.csv")
+getwd()
+testing <- read.csv("testing.csv")
+nas <- list()
+for(i in names(training)){#
+  nas <- c(nas, sum(is.na(training[i])))#
+  }
+sum(nas>10000)
+clean_train <- training[nas==0]
+clean_test <- testing[nas==0]
+empty <- list()
+for(i in names(clean_train)){#
+  empty <- c(empty, sum(clean_train[i]==""))#
+  }
+clean_train <- clean_train[empty==0]
+clean_train <- clean_train[,-c(2:7)]
+clean_test <- clean_test[,-c(2:7)]
+ncol(clean_train)
+library(caret)
+set.seed(6492)
+inTrain = createDataPartition(y=clean_train$classe, p= 3/4, list=FALSE)
+training_data <- clean_train[ inTrain,]
+testing_data <- clean_train[-inTrain,]
+library(randomForests)
+library(randomForest)
+inTrain = createDataPartition(y=clean_train$classe, p= .6, list=FALSE)
+training_data <- clean_train[ inTrain,]
+testing_data <- clean_train[-inTrain,]
+modelFit <- train(training_data$classe ~ ., method="glm", preProcess="pca", data=training_data)
+str(clean_train)
+for(i in names(clean_train)){
+}
+length(clean_train)
+ncol(clean_train)
+for(i in 1:53){
+clean_train[,i] <- as.numeric(clean_train[,i])
+}
+str(clean_train)
+clean_train <- clean_train[,-1]
+str(clean_train)
+inTrain = createDataPartition(y=clean_train$classe, p= .6, list=FALSE)
+training_data <- clean_train[ inTrain,]
+testing_data <- clean_train[-inTrain,]
+modelFit <- train(training_data$classe ~ ., method="rf", preProcess="pca", data=training_data)
+warnings()
+modelFit
+fancyRpartPlot(modFit$finalModel)
+library(rattle)
+fancyRpartPlot(modelFit$finalModel)
+modelFit$finalModel
+getTree(modelFit$finalModel, k=2)
+dim(training_data)
+53 * 11776
+saveRDS(modelFit, "savedmodel.RDS")
+install.packages("doParallel")
+library(doParallel)
+registerDoParallel(cores=2)
+newmodel <- train(classe ~ ., method="rf", data=training_data)
+newmodel$finalModel
+saveRDS(newmodel, "savedmodel2.RDS")
+predict(newmodel, testing_data) == testing_data$classe
+mean(predict(newmodel, testing_data) == testing_data$classe)
+names(testing_data)
+names(testing)
+head(testing$problem_id, n=20)
+pred <- predict(newmodel, newdata = testing)
+head(pred)
+length(pred)
+pred
+n = 20
+for(i in 1:20){
+}
+pml_write_files = function(x){
+n = length(x)
+for(i in 1:n){
+filename = paste0("problem_id_",i,".txt")
+write.table(x[i],file=filename,quote=FALSE,row.names=FALSE,col.names=FALSE)
+}
+}
+setwd(Documents/data/project)
+setwd("/Documents/data/project")
+setwd("Documents/data/project")
+getwd()
+setwd("Documents/data/")
+setwd("project/")
+pml_write_files(pred)
+x <- seq(0,1, .1)
+x
+round(.5+x)
+round(.4999+x)
+ceiling(x)
+sqrt(9)
+5%%3
+6%%2
+library(shiny)
+install.packages("shiny")
+library(shiny)
+getwd()
+setwd("newstuff")
+getwd()
+runApp()
+exit()
+exit()
+exit()
+exit()
+runApp()
+runApp()
+5 %% 3 == 0
+6 %% 3 == 0
+small_primes <- c(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97)
+bound <- ceiling(sqrt(x))
+x = 56
+bound <- ceiling(sqrt(x))
+bound
+sqrt(56)
+if (bound %% 2 == 0){
+response <- "not prime"
+}
+response
+8/3
+response <- "prime"
+if (bound %% 3 == 0){
+response <- "not prime"
+}
+response
+primeorno <- function(x){#
+	bound <- ceiling(sqrt(x))#
+	response <- "prime"#
+	for(i in small_primes){#
+		if (bound %% i == 0) {#
+			response <- "not prime"#
+		}#
+	}#
+	return(response)#
+}
+primeorno(40)
+primeorno(7)
+primeorno(131)
+bound <- ceiling(sqrt(131))
+bound
+runApp()
+?shiny
+getwd()
+runApp("newstuff")
+runApp()
+runApp()
